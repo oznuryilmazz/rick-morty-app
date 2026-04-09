@@ -7,9 +7,9 @@ import type { Character } from '@/types/character';
 import {
   AlertTriangle,
   CalendarDays,
+  CheckCircle2,
   Clapperboard,
   Compass,
-  Dna,
   HeartPulse,
   MapPin,
   Skull,
@@ -78,7 +78,7 @@ export const CharacterCard = ({ character }: { character: Character }) => {
     <Card
       className={`group cursor-pointer transition-all ${
         selected
-          ? 'ring-primary/50 border-primary/30 -translate-y-0.5 shadow-lg ring-2'
+          ? 'ring-primary/40 border-primary/40 shadow-primary/15 -translate-y-0.5 shadow-xl ring-2'
           : 'hover:-translate-y-1 hover:shadow-lg'
       }`}
       onClick={() => {
@@ -103,6 +103,15 @@ export const CharacterCard = ({ character }: { character: Character }) => {
           className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
           loading="lazy"
         />
+        {selected ? (
+          <>
+            <div className="bg-primary/10 pointer-events-none absolute inset-0" />
+            <div className="bg-primary text-primary-foreground absolute top-2 right-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold shadow-md">
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              Selected
+            </div>
+          </>
+        ) : null}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
       <CardContent className="space-y-3 pt-4 pb-5">
@@ -124,10 +133,6 @@ export const CharacterCard = ({ character }: { character: Character }) => {
             <UserRound className="h-3.5 w-3.5" />
             {genderLabelMap[character.gender]}
           </Badge>
-          <Badge variant="default">
-            <Dna className="h-3.5 w-3.5" />
-            {character.species}
-          </Badge>
         </div>
 
         <div className="border-border/70 grid grid-cols-2 gap-2 border-t pt-2">
@@ -136,7 +141,10 @@ export const CharacterCard = ({ character }: { character: Character }) => {
               <Compass className="h-3.5 w-3.5" />
               Origin
             </p>
-            <p className="line-clamp-1 text-xs font-semibold">
+            <p
+              className="line-clamp-1 text-xs font-semibold"
+              title={normalizePlaceName(character.origin.name)}
+            >
               {normalizePlaceName(character.origin.name)}
             </p>
           </div>
@@ -146,7 +154,10 @@ export const CharacterCard = ({ character }: { character: Character }) => {
               <MapPin className="h-3.5 w-3.5" />
               Location
             </p>
-            <p className="line-clamp-1 text-xs font-semibold">
+            <p
+              className="line-clamp-1 text-xs font-semibold"
+              title={normalizePlaceName(character.location.name)}
+            >
               {normalizePlaceName(character.location.name)}
             </p>
           </div>
