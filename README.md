@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rick and Morty Characters
 
-## Getting Started
+Rick and Morty API kullanarak karakter listeleme ve filtreleme yapan bir Next.js uygulaması.
 
-First, run the development server:
+## Kullanılan Teknolojiler
+
+- Next.js 16 (App Router, SSR)
+- TypeScript
+- Tailwind CSS
+- React Query
+- Zustand
+- nuqs (URL query state)
+- Axios
+
+## Özellikler
+
+- Karakterleri `status` ve `gender` filtreleriyle listeleme
+- Filtrelerin URL üzerinden yönetilmesi (`?status=alive&gender=male`)
+- Filtre değişiminde SSR ile güncel veri çekilmesi
+- React Query ile veri cache/prefetch akışı
+- Zustand ile seçili karakter ve filtre state yönetimi
+- Light/Dark tema desteği
+
+## Proje Yapısı
+
+```text
+app/
+  layout.tsx
+  page.tsx
+  providers.tsx
+components/
+  character/
+  filters/
+  theme/
+  ui/
+hooks/
+lib/
+services/
+store/
+types/
+```
+
+## Kurulum
+
+```bash
+npm install
+```
+
+## Geliştirme
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Varsayılan olarak `http://localhost:3000` adresinde açılır. Port doluysa Next.js uygun bir porta geçer.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Komutlar
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev        # Development server
+npm run build      # Production build
+npm run start      # Production server
+npm run lint       # ESLint kontrolü
+npm run typecheck  # TypeScript type check
+npm run format     # Prettier formatlama
+```
 
-## Learn More
+## Kod Kalitesi
 
-To learn more about Next.js, take a look at the following resources:
+- ESLint + Prettier yapılandırması mevcut
+- `any` kullanımı ESLint ile engelleniyor
+- Husky + lint-staged aktif
+- Pre-commit aşamasında:
+  - staged dosyalar lint/format edilir
+  - proje genelinde `lint` ve `typecheck` çalışır
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Kullanılan endpoint:
 
-## Deploy on Vercel
+- `GET https://rickandmortyapi.com/api/character`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Filtre parametreleri:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `status`: `alive | dead | unknown`
+- `gender`: `male | female | genderless | unknown`
